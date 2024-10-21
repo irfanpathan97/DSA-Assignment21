@@ -1,0 +1,360 @@
+A) Write a menu driven program for singly linked list-
+-	To create linked list.
+-	To display linked list
+-	To search node in linked list.
+-	Insert at last position
+
+
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class SinglyLinkedList {
+    private Node head;
+
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+
+    
+   public void display() {
+        if (head == null) {
+            System.out.println("List is empty.");
+            return;
+        }
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+        System.out.println("null");
+    }
+
+    
+    public boolean search(int key) {
+        Node current = head;
+        while (current != null) {
+            if (current.data == key) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+}
+
+public class LinkedListMenu {
+    public static void main(String[] args) {
+        SinglyLinkedList list = new SinglyLinkedList();
+        Scanner scanner = new Scanner(System.in);
+        int choice, data;
+
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Insert at last");
+            System.out.println("2. Display linked list");
+            System.out.println("3. Search for a node");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter data to insert at last: ");
+                    data = scanner.nextInt();
+                    list.insertAtEnd(data);
+                    break;
+                case 2:
+                    System.out.println("Linked List:");
+                    list.display();
+                    break;
+                case 3:
+                    System.out.print("Enter data to search: ");
+                    data = scanner.nextInt();
+                    if (list.search(data)) {
+                        System.out.println(data + " found in the list.");
+                    } else {
+                        System.out.println(data + " not found in the list.");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 4);
+
+        scanner.close();
+    }
+}
+
+B) Write a  program to create doubly link list and display nodes having odd value.
+
+
+class Node {
+    int data;
+    Node next;
+    Node prev;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class DoublyLinkedList {
+    private Node head;
+
+    
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+        newNode.prev = current;
+    }
+
+    
+    public void displayOddValues() {
+        if (head == null) {
+            System.out.println("List is empty.");
+            return;
+        }
+        Node current = head;
+        System.out.print("Nodes with odd values: ");
+        boolean hasOdd = false;
+        while (current != null) {
+            if (current.data % 2 != 0) {
+                System.out.print(current.data + " ");
+                hasOdd = true;
+            }
+            current = current.next;
+        }
+        if (!hasOdd) {
+            System.out.println("No odd values found.");
+        } else {
+            System.out.println();
+        }
+    }
+}
+
+public class DoublyLinkedListExample {
+    public static void main(String[] args) {
+        DoublyLinkedList list = new DoublyLinkedList();
+        list.insertAtEnd(1);
+        list.insertAtEnd(2);
+        list.insertAtEnd(3);
+        list.insertAtEnd(4);
+        list.insertAtEnd(5);
+
+        
+        list.displayOddValues();
+    }
+}
+
+
+
+C)Write a  program to accept names from the user and sort in alphabetical order using bubble sort 
+-	Accept n name									
+-	Bubble sort Function							
+-	Display	
+
+
+import java.util.Scanner;
+
+public class BubbleSortNames {
+
+    
+    public static void bubbleSort(String[] names) {
+        int n = names.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                
+                if (names[j].compareTo(names[j + 1]) > 0) {
+                    String temp = names[j];
+                    names[j] = names[j + 1];
+                    names[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter the number of names: ");
+        int n = scanner.nextInt();
+        scanner.nextLine(); 
+
+        String[] names = new String[n];
+
+        
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter name " + (i + 1) + ": ");
+            names[i] = scanner.nextLine();
+        }
+
+       
+        bubbleSort(names);
+
+         System.out.println("\nSorted names in alphabetical order:");
+        for (String name : names) {
+            System.out.println(name);
+        }
+
+        scanner.close();
+    }
+}
+
+
+D) Write a program which accept the string and reverse each word of the string using Static implementation of stack.
+Example: Input - This is an input string
+   Output - sihTsinatupnignirts.
+
+
+import java.util.Scanner;
+
+class Stack {
+    private char[] stack;
+    private int top;
+    private int maxSize;
+
+   
+    public Stack(int size) {
+        this.maxSize = size;
+        this.stack = new char[maxSize];
+        this.top = -1;
+    }
+
+   
+    public void push(char c) {
+        if (top < maxSize - 1) {
+            stack[++top] = c;
+        }
+    }
+
+    
+    public char pop() {
+        if (top >= 0) {
+            return stack[top--];
+        }
+        return '\0'; 
+    }
+
+    
+    public boolean isEmpty() {
+        return top == -1;
+    }
+}
+
+public class ReverseWordsInString {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+        
+      
+        String[] words = input.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        
+        for (String word : words) {
+            Stack stack = new Stack(word.length());
+            
+            
+            for (char c : word.toCharArray()) {
+                stack.push(c);
+            }
+
+           
+            while (!stack.isEmpty()) {
+                result.append(stack.pop());
+            }
+
+           result.append(" ");
+        }
+
+         System.out.println("Output: " + result.toString().trim());
+
+        scanner.close();
+    }
+}
+
+
+)B) Write a  program to accept the names of cities and store them in array. Accept the city name from user and use linear search algorithm to check whether the city is present in array or not.
+
+
+import java.util.Scanner;
+
+public class CitySearch {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter the number of cities: ");
+        int n = scanner.nextInt();
+        scanner.nextLine(); 
+
+        String[] cities = new String[n];
+
+       
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter city name " + (i + 1) + ": ");
+            cities[i] = scanner.nextLine();
+        }
+
+       
+        System.out.print("Enter the city name to search: ");
+        String cityToSearch = scanner.nextLine();
+
+       
+        boolean found = linearSearch(cities, cityToSearch);
+
+        
+        if (found) {
+            System.out.println(cityToSearch + " is present in the list of cities.");
+        } else {
+            System.out.println(cityToSearch + " is not present in the list of cities.");
+        }
+
+        scanner.close();
+    }
+
+    
+    public static boolean linearSearch(String[] cities, String cityToSearch) {
+        for (String city : cities) {
+            if (city.equalsIgnoreCase(cityToSearch)) {
+                return true; 
+            }
+        }
+        return false;     }
+}
+	
+
